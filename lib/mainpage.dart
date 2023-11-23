@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:grocerystoreapp/cart_page.dart';
 import 'package:grocerystoreapp/market.dart';
+import 'package:grocerystoreapp/loguout.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.username});
 
   final String username;
+
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -22,6 +24,17 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // New function to handle logout button press
+  void _onLogoutPressed() {
+    // Navigate to the LogoutPage and pass the username
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LogoutPage(username: widget.username),
+      ),
+    );
   }
 
   @override
@@ -41,9 +54,10 @@ class _MainPageState extends State<MainPage> {
           centerTitle: false,
           actions: [
             MaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                // onPressed: () {
+                  // Navigator.pop(context);
+                // },
+                onPressed: _onLogoutPressed,
                 child: Icon(
                   Icons.logout,
                   color: Colors.red,
