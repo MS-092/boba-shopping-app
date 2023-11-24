@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocerystoreapp/login.dart';
-import 'package:grocerystoreapp/mainpage.dart'; // Import your MainPage file
+import 'package:grocerystoreapp/mainpage.dart';
+import 'package:grocerystoreapp/intro.dart';
 
 class LogoutPage extends StatelessWidget {
   final String username;
@@ -22,7 +23,7 @@ class LogoutPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    MainPage(username: "Guest")));
+                                    MainPage(username: '$username')));
                       } // Navigate back to the previous screen
           ,
         ),
@@ -157,7 +158,7 @@ Thanks for using Boba Shop App!
                   if (logoutConfirmed == true) {
                     // After successful logout, the user will be going to the login page
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => IntroScreen()),
                     );
                   }
                 },
