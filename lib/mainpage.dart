@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocerystoreapp/cart_page.dart';
+import 'package:grocerystoreapp/intro.dart';
 import 'package:grocerystoreapp/market.dart';
-import 'package:grocerystoreapp/loguout.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.username});
@@ -26,17 +26,6 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  // New function to handle logout button press
-  void _onLogoutPressed() {
-    // Navigate to the LogoutPage and pass the username
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LogoutPage(username: widget.username),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +43,39 @@ class _MainPageState extends State<MainPage> {
           centerTitle: false,
           actions: [
             MaterialButton(
-                // onPressed: () {
-                  // Navigator.pop(context);
-                // },
-                onPressed: _onLogoutPressed,
-                child: Icon(
+
+                 onPressed: () async{
+                  // confirmation dialog
+                  bool logoutConfirmed = await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Confirmation'),
+                      content: Text('Do you really want to logout?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (logoutConfirmed == true) {
+                    // After successful logout, the user will be going to the login page
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => IntroScreen()),
+                    );
+                  }
+                 },
+                 child: Icon(
                   Icons.logout,
                   color: Colors.red,
                   size: 35,
